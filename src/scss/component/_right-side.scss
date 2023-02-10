@@ -1,0 +1,63 @@
+main {
+  flex: 1;
+  height: 100%;
+  background-color: var(--blue-gray);
+  align-items: baseline;
+
+  .chat-wrapper {
+    padding-left: 14px;
+    &.gpt {
+      background-color: var(--gray-green);
+    }
+  }
+
+  .chat {
+    max-width: 780px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    align-items: flex-start;
+    padding-block: 28px;
+  }
+
+  .profile {
+    width: 30px;
+    height: 30px;
+    background-color: var(--white);
+    flex: none;
+    margin-right: 25px;
+  }
+
+  .content {
+    flex: 1;
+
+    p {
+      font-size: 16px;
+      line-height: 28px;
+      color: #d1d5db;
+    }
+  }
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  flex: none;
+  margin-left: 10px;
+
+  button {
+    color: var(--gray);
+    @include reset-button;
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 5px 8px;
+    cursor: pointer;
+    transition: 0.2s all;
+
+    &:hover {
+      background-color: #40414f;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+
+@mixin reset-ul {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin reset-link {
+  outline: 0;
+  border: 0;
+  text-decoration: none;
+}
+
+@mixin reset-button {
+  outline: 0;
+  border: 0;
+}
+
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

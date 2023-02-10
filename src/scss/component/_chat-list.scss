@@ -1,0 +1,79 @@
+.chatlist-continaer {
+  margin-top: 10px;
+  height: calc(100% - 67px);
+  overflow-y: auto;
+
+  &:hover ::-webkit-scrollbar {
+    width: 20px;
+    display: block;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #55586b;
+    border-radius: 8px;
+
+    &:hover {
+      background: #acacbe;
+    }
+  }
+
+  li {
+    margin: 8px;
+
+    &:not(:last-child) {
+      margin-bottom: 6px;
+      border-radius: 10px;
+    }
+  }
+}
+
+.single-chat {
+  @include reset-link;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--white);
+  padding: 12px 10px;
+  border-radius: 6px;
+  transition: background 0.1s ease;
+
+  &.active {
+    background-color: #2a2b32;
+  }
+
+  &:not(.active):hover {
+    background-color: #2a2b32;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+
+    & > svg {
+      display: inline-block;
+      margin-right: 12px;
+    }
+  }
+
+  button {
+    @include reset-button;
+    color: #d9d9e3;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--white);
+    }
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+}

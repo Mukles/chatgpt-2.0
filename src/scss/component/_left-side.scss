@@ -1,0 +1,26 @@
+aside {
+  display: block;
+  width: 261px;
+  background-color: #202123;
+
+  svg {
+    --magerment: 16px;
+    width: var(--magerment);
+    height: var(--magerment);
+  }
+
+  .aside-top {
+    height: calc(60% - 8px);
+    border-bottom: 1px solid rgba($color: #fff, $alpha: 0.2);
+  }
+
+  .aside-bottom {
+    height: 40%;
+
+    .chatlist-continaer {
+      overflow: hidden;
+      height: 100%;
+      margin: 0;
+    }
+  }
+}

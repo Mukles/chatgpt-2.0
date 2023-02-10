@@ -1,0 +1,35 @@
+/* --------------------------------------------
+    Template Default Fonts & Fonts Styles
+ ---------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+body {
+  height: 100vh;
+}
+
+main {
+  position: relative;
+  overflow-y: auto;
+}
+
+.wrapper {
+  display: flex;
+  height: 100%;
+  background-color: var(--black);
+}
