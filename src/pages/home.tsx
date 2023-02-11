@@ -1,31 +1,14 @@
 import ChatItem from "../Components/chat/chatItem";
-import { Like, Unlike } from "../icons/Icons";
 
 const Home = () => {
   return (
     <>
-      {[...Array(20)].map((item, i) => {
-        return <ChatItem key={i} text={i} />;
+      {[...Array(20)].map((item, i: number) => {
+        return <ChatItem key={i} text={i} i={i} />;
       })}
-      <div className="chat-wrapper gpt">
-        <div className="chat">
-          <div className="profile"></div>
-          <div className="content">
-            <p>Text dfjadsjfkldasjfldsalfj asdjflas djflasjl</p>
-          </div>
 
-          <div className="icons">
-            <button type="button">
-              <Like />
-            </button>
-            <button type="button">
-              <Unlike />
-            </button>
-          </div>
-        </div>
-      </div>
       {[...Array(20)].map((item, i) => {
-        return <ChatItem key={i} text={i} />;
+        return <ChatItem key={i} text={i} i={i} />;
       })}
     </>
   );

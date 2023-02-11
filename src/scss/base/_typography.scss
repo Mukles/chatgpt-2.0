@@ -30,6 +30,7 @@ main {
   & > div:first-child {
     height: 100%;
     overflow-y: auto;
+    padding-bottom: 100px;
 
     &:hover ::-webkit-scrollbar {
       width: 20px;
