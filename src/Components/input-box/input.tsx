@@ -1,20 +1,8 @@
-import { FormEvent } from "react";
 import { Submit } from "../../icons/Icons";
 
 export const InputBox = () => {
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    fetch(`${"http://localhost:8080"}/message`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify("MUkles Hossen"),
-    }).then((res) => console.log(res));
-  };
-
   return (
-    <form className="input-container" onSubmit={submitHandler}>
+    <form className="input-container">
       <div>
         <div className="input">
           <textarea />
