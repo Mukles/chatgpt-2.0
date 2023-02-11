@@ -59,7 +59,8 @@ main {
   position: relative;
 
   @media (max-width: $sm) {
-    position: initial;
+    position: static;
+    height: calc(100% - 51px);
   }
 }
 
