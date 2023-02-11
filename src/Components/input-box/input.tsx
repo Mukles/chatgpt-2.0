@@ -2,8 +2,8 @@ import { Submit } from "../../icons/Icons";
 
 export const InputBox = () => {
   return (
-    <form>
-      <div className="input-container">
+    <form className="input-container">
+      <div>
         <div className="input">
           <textarea />
           <button>

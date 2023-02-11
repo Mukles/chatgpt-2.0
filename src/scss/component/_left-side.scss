@@ -2,6 +2,15 @@ aside {
   display: block;
   width: 261px;
   background-color: #202123;
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100%;
+
+  @media (max-width: $sm) {
+    position: absolute;
+    z-index: 20;
+  }
 
   svg {
     --magerment: 16px;

@@ -1,12 +1,16 @@
 import { Like, Unlike } from "../../icons/Icons";
 
-const ChatItem = () => {
+interface Props {
+  text?: any;
+}
+
+const ChatItem = ({ text }: Props) => {
   return (
     <div className="chat-wrapper gpt">
       <div className="chat">
         <div className="profile"></div>
         <div className="content">
-          <p>I'm sorry, I don't understand what you mean by "fsad". Can you</p>
+          <p>Text {text}</p>
         </div>
 
         <div className="icons">
