@@ -1,13 +1,16 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
 import { InputBox } from "../Components/input-box/input";
 import Sidebar from "../Components/sidebar";
 import { useWidth } from "../hooks/useWidth";
+import { Add } from "../icons/Icons";
 
 const Layout = () => {
   const width = useWidth();
+  const navigator = useNavigate();
+
   let [open, setOpen] = useState<boolean>();
   const onClose = (e: any) => {
     e.stopPropagation();
@@ -61,6 +64,15 @@ const Layout = () => {
                   exit="closed"
                   transition={{ type: "spring", bounce: 0, duration: 0.3 }}
                 >
+                  <button
+                    className="create-new-chat"
+                    onClick={() => navigator("/chat")}
+                  >
+                    <span>
+                      <Add />
+                    </span>
+                    <span>New chat</span>
+                  </button>
                   <Sidebar />
                 </motion.aside>
               </motion.div>

@@ -1,0 +1,60 @@
+.setttings {
+  .settting-item {
+    padding: 10px;
+
+    select,
+    input {
+      @include reset-button;
+      margin-block: 8px;
+      width: 100%;
+      background-color: transparent;
+      padding: 13px 12px;
+      border-radius: 6px;
+      border: 1px solid hsla(0deg, 0%, 100%, 0.2);
+      color: var(--white);
+    }
+
+    select {
+      appearance: none;
+      color: var(--black);
+      background-color: var(--black);
+      background-image: none;
+
+      &::-ms-expand {
+        display: none;
+      }
+    }
+
+    .select {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: 3rem;
+      border-radius: 6px;
+
+      select {
+        flex: 1;
+        padding: 0 0.5rem;
+        color: var(--white);
+        cursor: pointer;
+      }
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--white);
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    label {
+      display: block;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+  }
+}

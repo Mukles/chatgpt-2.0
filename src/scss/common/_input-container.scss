@@ -37,6 +37,12 @@
     border-radius: 6px;
     background: rgba(64, 65, 79, 1);
     border: 1px solid rgba(32, 33, 35, 0.5);
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   button {

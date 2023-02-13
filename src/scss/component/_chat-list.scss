@@ -1,6 +1,6 @@
 .chatlist-continaer {
   margin-top: 10px;
-  height: calc(100% - 67px);
+  height: 100%;
   overflow-y: auto;
 
   &:hover ::-webkit-scrollbar {

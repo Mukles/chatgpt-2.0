@@ -1,0 +1,142 @@
+.login-section {
+  height: 100vh;
+  position: relative;
+
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+    backdrop-filter: blur(1px);
+  }
+
+  .form-value {
+    background-color: rgba($color: #091a42, $alpha: 0.7);
+    border: 2px solid rgba($color: #fff, $alpha: 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    width: 400px;
+    height: 450px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 50px;
+
+    form {
+      width: 100%;
+    }
+
+    h2 {
+      font-size: 32px;
+      color: var(--white);
+      text-align: center;
+      text-transform: capitalize;
+    }
+
+    .input-box {
+      position: relative;
+      margin-block: 30px;
+      border-bottom: 2px solid white;
+
+      label {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        color: var(--white);
+        font-size: 16px;
+        pointer-events: none;
+        transition: 0.2s;
+      }
+
+      input {
+        @include reset-button;
+        width: 100%;
+        height: 35px;
+        background-color: transparent;
+        font-size: 16px;
+        padding: 0 35px 0 5px;
+        color: var(--white);
+
+        &:focus ~ label,
+        &:valid ~ label {
+          top: -5px;
+        }
+      }
+
+      svg {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        color: var(--white);
+        width: 20px;
+        height: 20px;
+        transform: translateY(-50%);
+      }
+    }
+
+    .forget {
+      font-size: 14px;
+      color: var(--white);
+      display: flex;
+      justify-content: center;
+
+      label {
+        margin-right: 3px;
+      }
+
+      input {
+        margin-right: 3px;
+        color: var(--white);
+      }
+
+      & > a {
+        text-decoration: none;
+        color: var(--white);
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    button {
+      @include reset-button;
+      margin-block: 12px;
+      width: 100%;
+      height: 40px;
+      border-radius: 6px;
+      background-color: var(--white);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .register {
+      font-size: 14px;
+      color: var(--white);
+      text-align: center;
+      margin-top: 10px;
+
+      a {
+        display: inline-block;
+        margin-left: 6px;
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--white);
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

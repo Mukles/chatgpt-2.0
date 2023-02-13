@@ -1,56 +1,40 @@
-import { useNavigate } from "react-router-dom";
-import { Add, Delete, Discord, FAQ, Light, Logout } from "../icons/Icons";
-import ConversationItem from "./chat/conversationItem";
+import { useState } from "react";
+import ListContainer from "./chat/chatlist-container";
+import Pager from "./Pager";
+import Settings from "./settings";
+
+interface Item {
+  conversation: any;
+  settings: any;
+}
+
+const tabs = ["conversation", "settings"];
+const item: any = {
+  conversation: <ListContainer />,
+  settings: <Settings />,
+};
 
 const Sidebar = () => {
-  const navigator = useNavigate();
+  const [value, setValue] = useState<number>(0);
+
   return (
     <>
-      <div className="aside-top">
-        <button className="create-new-chat" onClick={() => navigator("/chat")}>
-          <span>
-            <Add />
-          </span>
-          <span>New chat</span>
-        </button>
-        <ul className="chatlist-continaer">
-          <ConversationItem isActive={true} />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-          <ConversationItem />
-        </ul>
+      <div className="tab-container">
+        <div className="tab-list">
+          {tabs.map((tab, i) => (
+            <li key={tab}>
+              <button
+                className={i === value ? "active" : ""}
+                onClick={() => setValue(i)}
+              >
+                {tab}
+              </button>
+            </li>
+          ))}
+        </div>
       </div>
-      <div className="aside-bottom">
-        <ul className="chatlist-continaer">
-          <ConversationItem text="Clear conversations">
-            <Delete />
-          </ConversationItem>
 
-          <ConversationItem text="Light mode">
-            <Light />
-          </ConversationItem>
-          <ConversationItem text="OpenAI Discord">
-            <Discord />
-          </ConversationItem>
-          <ConversationItem text="Updates & FAQ">
-            <FAQ />
-          </ConversationItem>
-          <ConversationItem text="Log out">
-            <Logout />
-          </ConversationItem>
-        </ul>
-      </div>
+      <Pager value={value}>{tabs.map((tab) => item[tab as any])}</Pager>
     </>
   );
 };

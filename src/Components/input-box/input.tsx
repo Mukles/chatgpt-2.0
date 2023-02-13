@@ -1,3 +1,4 @@
+import TextArea from "../../helpers/TextArea";
 import { Submit } from "../../icons/Icons";
 
 export const InputBox = () => {
@@ -5,7 +6,7 @@ export const InputBox = () => {
     <form className="input-container">
       <div>
         <div className="input">
-          <textarea />
+          <TextArea />
           <button>
             <Submit />
           </button>
