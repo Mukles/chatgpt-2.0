@@ -1,67 +1,109 @@
-import { Link } from "react-router-dom";
+import { FastField, Form, Formik } from "formik";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useRegisterMutation } from "../../App/feature/user/userApi";
+import graphic from "../../assets/graphic.svg";
+import { ChatGpt } from "../../icons/Icons";
+import { registerSchema } from "../../validation/registationValidation";
 
 const Register = () => {
+  const [register, { isLoading }] = useRegisterMutation();
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
   return (
-    <section className="login-section">
-      <video src="/video.mp4" autoPlay loop muted />
-      <div className="form-box">
-        <div className="form-value">
-          <form>
-            <h2>Login</h2>
-            <div className="input-box">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-                />
-              </svg>
-              <input id="email" type="email" name="email" required />
-              <label htmlFor="email">Email</label>
+    <section>
+      <div className="form-body">
+        <div className="website-logo">
+          <ChatGpt />
+          <h1>Chat-gpt 2.0</h1>
+        </div>
+        <div className="row">
+          <div className="img-holder">
+            <div className="info-holder">
+              <img src={graphic} alt="graphif" />
             </div>
-            <div className="input-box">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
-                />
-              </svg>
+          </div>
+          <div className="form-holder">
+            <div className="form-content">
+              <div className="form-items">
+                <h1>Get more things done with Loggin platform.</h1>
+                <p>
+                  Access to the most powerfull tool in the entire design and web
+                  industry.
+                </p>
 
-              <input id="password" type="password" name="password" required />
-              <label htmlFor="password">Password</label>
-            </div>
+                <ul className="page-routes">
+                  <li>
+                    <NavLink
+                      to={"/account/login"}
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      Login
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                      to={"/account/register"}
+                    >
+                      Register
+                    </NavLink>
+                  </li>
+                </ul>
 
-            <div className="forget">
-              <label htmlFor="remember">
-                <input id="remember" type={"checkbox"} />
-                Remember me
-              </label>
-              <a href="/">Forget Password</a>
-            </div>
-            <button type="submit">Loign</button>
+                <Formik
+                  validationSchema={registerSchema}
+                  initialValues={{ name: "", email: "", password: "" }}
+                  onSubmit={(values, { resetForm }) => {
+                    register(values)
+                      .unwrap()
+                      .then(() => {
+                        state?.from && navigate("/");
+                        resetForm();
+                      })
+                      .catch((err) => {});
+                  }}
+                >
+                  {({ values: { email, name, password } }) => {
+                    return (
+                      <Form>
+                        <div>
+                          <FastField
+                            name="name"
+                            placeholder="Full Name"
+                            type="text"
+                            value={name}
+                          />
+                        </div>
+                        <div>
+                          <FastField
+                            name="email"
+                            placeholder="E-mail Address"
+                            type="email"
+                            value={email}
+                          />
+                        </div>
 
-            <div className="register">
-              <p>
-                Don't have a account{" "}
-                <Link to="/account/register">Register</Link>
-              </p>
+                        <div>
+                          <FastField
+                            name="password"
+                            placeholder="Password"
+                            type="password"
+                            value={password}
+                          />
+                        </div>
+                        <div className="submit">
+                          <button disabled={isLoading} type="submit">
+                            Register
+                          </button>
+                        </div>
+                      </Form>
+                    );
+                  }}
+                </Formik>
+              </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </section>

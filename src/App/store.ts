@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./feature/apiSlice";
+import { userSlice } from "./feature/user/userSlice";
 
 export const configStore = () =>
   configureStore({
     reducer: {
+      [userSlice.name]: userSlice.reducer,
       [apiSlice.reducerPath]: apiSlice.reducer,
     },
 

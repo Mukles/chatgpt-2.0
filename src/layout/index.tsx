@@ -25,7 +25,7 @@ const Layout = () => {
     if (width && width < 769) {
       setOpen(false);
     } else {
-      setOpen(true);
+      width && setOpen(true);
     }
   }, [width]);
 
@@ -35,6 +35,7 @@ const Layout = () => {
       <div className="wrapper">
         {width === undefined ? (
           <aside
+            className="lg-sidebar"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();

@@ -1,12 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ListContainer from "./chat/chatlist-container";
 import Pager from "./Pager";
 import Settings from "./settings";
-
-interface Item {
-  conversation: any;
-  settings: any;
-}
 
 const tabs = ["conversation", "settings"];
 const item: any = {
@@ -22,7 +17,7 @@ const Sidebar = () => {
       <div className="tab-container">
         <div className="tab-list">
           {tabs.map((tab, i) => (
-            <li key={tab}>
+            <li key={i}>
               <button
                 className={i === value ? "active" : ""}
                 onClick={() => setValue(i)}
@@ -34,7 +29,11 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <Pager value={value}>{tabs.map((tab) => item[tab as any])}</Pager>
+      <Pager value={value}>
+        {tabs.map((tab) => (
+          <React.Fragment key={tab}>{item[tab as any]}</React.Fragment>
+        ))}
+      </Pager>
     </>
   );
 };

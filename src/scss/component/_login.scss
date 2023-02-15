@@ -1,140 +1,171 @@
-.login-section {
-  height: 100vh;
-  position: relative;
+.form-body {
+  height: 100%;
 
-  video {
+  .website-logo {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 20px;
+    left: 30px;
+    z-index: 9999;
+    color: #fff;
+    font-size: 25px;
+    text-transform: capitalize;
+
+    @media (max-width: $md) {
+      font-size: 20px;
+    }
+
+    h1 {
+      margin-left: 12px;
+    }
+  }
+
+  .row {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    margin-left: 0;
+    margin-right: 0;
     height: 100%;
-    object-fit: cover;
-    filter: brightness(0.5);
-    backdrop-filter: blur(1px);
+    height: 100%;
+    min-height: 100%;
+    background-color: #27343e;
   }
 
-  .form-value {
-    background-color: rgba($color: #091a42, $alpha: 0.7);
-    border: 2px solid rgba($color: #fff, $alpha: 0.5);
-    border-radius: 20px;
-    backdrop-filter: blur(6px);
+  .img-holder {
+    display: inline-block;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 10;
-    width: 400px;
-    height: 450px;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    width: 550px;
+    height: 100%;
+    overflow: hidden;
+    padding: 60px;
+    text-align: center;
+    z-index: 999;
+    width: 550px;
+    background-color: #a06df2;
+
+    @media (max-width: $md) {
+      display: none;
+    }
+  }
+
+  .info-holder {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 50px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .form-holder {
+    margin-left: 550px;
+    height: 100%;
+
+    @media (max-width: $md) {
+      margin-left: 0;
+    }
+
+    .form-content {
+      position: relative;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px;
+      min-height: 100%;
+
+      @media (max-width: $sm) {
+        padding: 20px;
+      }
+    }
+
+    .form-items {
+      max-width: 340px;
+      text-align: left;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--white);
+      text-align: left;
+    }
+
+    .page-routes {
+      display: flex;
+      list-style: none;
+      margin-bottom: 20px;
+
+      li a {
+        color: var(--white);
+        text-decoration: none;
+        font-size: 16px;
+        line-height: 23px;
+        font-weight: 400;
+        padding-bottom: 6px;
+        border-bottom: 2px solid rgba($color: #fff, $alpha: 0.4);
+        transition: 0.3s all;
+
+        &.active {
+          font-weight: 700;
+          border-color: #fff;
+        }
+      }
+
+      li:not(:last-child) {
+        margin-right: 12px;
+      }
+    }
+
+    P {
+      color: var(--white);
+      text-align: left;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 20px;
+      margin-bottom: 30px;
+    }
 
     form {
-      width: 100%;
-    }
-
-    h2 {
-      font-size: 32px;
-      color: var(--white);
-      text-align: center;
-      text-transform: capitalize;
-    }
-
-    .input-box {
-      position: relative;
-      margin-block: 30px;
-      border-bottom: 2px solid white;
-
-      label {
-        position: absolute;
-        top: 50%;
-        left: 5px;
-        transform: translateY(-50%);
-        color: var(--white);
-        font-size: 16px;
-        pointer-events: none;
-        transition: 0.2s;
-      }
+      margin-bottom: 30px;
 
       input {
         @include reset-button;
         width: 100%;
-        height: 35px;
-        background-color: transparent;
-        font-size: 16px;
-        padding: 0 35px 0 5px;
-        color: var(--white);
+        display: block;
+        margin-block: 12px;
+        padding: 12px 10px;
+        border-radius: 6px;
+      }
 
-        &:focus ~ label,
-        &:valid ~ label {
-          top: -5px;
+      .submit {
+        display: flex;
+        align-items: center;
+
+        button {
+          @include reset-button;
+          display: block;
+          margin-right: 12px;
+          border-radius: 5px;
+          padding: 10px 30px;
+          font-weight: 700;
+          font-size: 15px;
+          color: #29a4ff;
+          cursor: pointer;
         }
-      }
 
-      svg {
-        position: absolute;
-        right: 8px;
-        top: 50%;
-        color: var(--white);
-        width: 20px;
-        height: 20px;
-        transform: translateY(-50%);
-      }
-    }
+        a {
+          color: var(--white);
+          text-decoration: none;
 
-    .forget {
-      font-size: 14px;
-      color: var(--white);
-      display: flex;
-      justify-content: center;
-
-      label {
-        margin-right: 3px;
-      }
-
-      input {
-        margin-right: 3px;
-        color: var(--white);
-      }
-
-      & > a {
-        text-decoration: none;
-        color: var(--white);
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-
-    button {
-      @include reset-button;
-      margin-block: 12px;
-      width: 100%;
-      height: 40px;
-      border-radius: 6px;
-      background-color: var(--white);
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .register {
-      font-size: 14px;
-      color: var(--white);
-      text-align: center;
-      margin-top: 10px;
-
-      a {
-        display: inline-block;
-        margin-left: 6px;
-        font-weight: 600;
-        text-decoration: none;
-        color: var(--white);
-
-        &:hover {
-          text-decoration: underline;
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
     }

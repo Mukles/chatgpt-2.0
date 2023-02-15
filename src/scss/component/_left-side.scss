@@ -7,6 +7,14 @@ aside {
   left: 0;
   height: 100%;
 
+  &.lg-sidebar {
+    display: block;
+
+    @media (max-width: $sm) {
+      display: none;
+    }
+  }
+
   @media (max-width: $sm) {
     position: absolute;
     z-index: 20;
@@ -19,12 +27,12 @@ aside {
   }
 
   .aside-top {
-    height: calc(60% - 8px);
+    height: calc(50% - 8px);
     border-bottom: 1px solid rgba($color: #fff, $alpha: 0.2);
   }
 
   .aside-bottom {
-    height: 40%;
+    height: 46%;
 
     .chatlist-continaer {
       overflow: hidden;

@@ -2,8 +2,12 @@
   .settting-item {
     padding: 10px;
 
-    select,
-    input {
+    &.selector {
+      position: relative;
+    }
+
+    input,
+    .select-feild {
       @include reset-button;
       margin-block: 8px;
       width: 100%;
@@ -12,32 +16,73 @@
       border-radius: 6px;
       border: 1px solid hsla(0deg, 0%, 100%, 0.2);
       color: var(--white);
-    }
-
-    select {
-      appearance: none;
-      color: var(--black);
-      background-color: var(--black);
-      background-image: none;
-
-      &::-ms-expand {
-        display: none;
-      }
-    }
-
-    .select {
-      position: relative;
       display: flex;
-      width: 100%;
-      height: 3rem;
-      border-radius: 6px;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
 
-      select {
-        flex: 1;
-        padding: 0 0.5rem;
-        color: var(--white);
-        cursor: pointer;
+      p {
+        font-style: normal;
+        margin: 0;
       }
+    }
+
+    .select-list {
+      position: absolute;
+      top: 72px;
+      left: 50%;
+      width: calc(100% - 18px);
+      transform: translateX(-50%);
+      border-radius: 6px;
+      overflow: hidden;
+      overflow-y: auto;
+      max-height: 250px;
+      background-color: var(--dark-shade);
+      border: 1px solid hsla(0deg, 0%, 100%, 0.2);
+
+      &:hover ::-webkit-scrollbar {
+        width: 20px;
+        display: block;
+      }
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #55586b;
+        border-radius: 8px;
+
+        &:hover {
+          background: #acacbe;
+        }
+      }
+
+      li {
+        padding: 6px 10px;
+        font-size: 16px;
+        font-weight: 400;
+        cursor: pointer;
+        color: var(--white);
+        transition: 0.3s all;
+
+        &:hover {
+          background-color: #55586b;
+          color: var(--white);
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 3px;
+        }
+      }
+    }
+
+    .notes p {
+      background-color: #55586b;
+      padding: 10px;
+      border-radius: 4px;
+      margin-block: 10px;
+      font-style: normal;
     }
 
     p {

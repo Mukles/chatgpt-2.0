@@ -1,8 +1,11 @@
 import { useRoutes } from "react-router-dom";
 import Layout from "./layout";
 import Login from "./pages/account/login";
+import Register from "./pages/account/register";
 import Chat from "./pages/Chat";
 import Home from "./pages/home";
+import Private from "./routes/private-rotue";
+import PublicRoute from "./routes/public-route";
 import "./scss/app.scss";
 
 function App() {
@@ -12,17 +15,29 @@ function App() {
       children: [
         {
           path: "login",
-          element: <Login />,
+          element: (
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          ),
         },
         {
           path: "register",
-          element: <Login />,
+          element: (
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          ),
         },
       ],
     },
     {
       path: "/",
-      element: <Layout />,
+      element: (
+        <Private>
+          <Layout />
+        </Private>
+      ),
       children: [
         {
           index: true,
