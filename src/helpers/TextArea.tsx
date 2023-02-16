@@ -1,4 +1,8 @@
-const TextArea = () => {
+interface Props {
+  textAreaRef: React.RefObject<HTMLTextAreaElement>;
+}
+
+const TextArea = ({ textAreaRef }: Props) => {
   const limit = 100;
   let scrollHeightBefore = 0;
   let less = false;
@@ -21,7 +25,7 @@ const TextArea = () => {
     adjustFont(e.target);
   };
 
-  return <textarea onChange={handleChange} />;
+  return <textarea ref={textAreaRef} onChange={handleChange} />;
 };
 
 export default TextArea;

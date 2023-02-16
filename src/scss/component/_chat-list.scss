@@ -58,8 +58,18 @@
     font-weight: 400;
     display: flex;
     align-items: center;
+    flex: 1;
+
+    & > span {
+      white-space: nowrap;
+      width: 50px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
 
     & > svg {
+      flex: none;
       display: inline-block;
       margin-right: 12px;
     }

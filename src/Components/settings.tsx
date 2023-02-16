@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetModelsQuery } from "../App/feature/model/modelApi";
-import { IModel } from "../App/feature/model/modelSlice";
+import { IModel, setvalue } from "../App/feature/model/modelSlice";
 import { RootState } from "../App/store";
 import Loader from "../helpers/Loader";
 
 const Settings = () => {
+  const dispatch = useDispatch();
   const modelInfo = useSelector<RootState, IModel>((state) => state.model);
   const [isOpen, setOpen] = useState(false);
-  const { isLoading, isSuccess, data: lists } = useGetModelsQuery();
-  console.log({ lists });
-  console.log(process.env.REACT_APP_API_URI);
+  const { isLoading, data: lists } = useGetModelsQuery();
 
   const toggleOpen = () => {
     setOpen(!isOpen);
@@ -18,6 +17,12 @@ const Settings = () => {
 
   const onSelect = (val: string) => {
     setOpen(false);
+    dispatch(setvalue({ model: val }));
+  };
+
+  const onchangeHandle = (e: any) => {
+    const { value } = e.target;
+    dispatch(setvalue({ temperature: parseInt(value) }));
   };
 
   return (
@@ -49,7 +54,11 @@ const Settings = () => {
             ) : (
               <>
                 {lists?.map((list) => {
-                  return <li key={list.id}>{list.id}</li>;
+                  return (
+                    <li onClick={() => onSelect(list.id)} key={list.id}>
+                      {list.id}
+                    </li>
+                  );
                 })}
               </>
             )}
@@ -68,7 +77,11 @@ const Settings = () => {
       </div>
       <div className="settting-item">
         <label htmlFor="model">Temperature</label>
-        <input type={"number"} value={modelInfo.temperature} />
+        <input
+          type={"number"}
+          onChange={onchangeHandle}
+          value={modelInfo.temperature}
+        />
         <div className="notes">
           <p>0 - Logical</p>
           <p>0.5 - Balanced</p>

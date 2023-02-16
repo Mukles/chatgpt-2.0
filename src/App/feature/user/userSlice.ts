@@ -10,9 +10,10 @@ const user: Omit<IUser, "password"> = {
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user") as any)
-    : user,
+  initialState: JSON.parse(
+    localStorage.getItem("user") ?? JSON.stringify(user)
+  ) as IUser,
+
   reducers: {
     setUserDetails: (state, { payload }) => {
       localStorage.setItem("user", JSON.stringify(payload));

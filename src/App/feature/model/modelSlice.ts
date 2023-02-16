@@ -14,7 +14,9 @@ export const modelSlice = createSlice({
   name: "model",
   initialState: modelInfo,
   reducers: {
-    setvalue: () => {},
+    setvalue: (state, { payload }) => {
+      return { ...state, ...payload };
+    },
   },
 });
 
