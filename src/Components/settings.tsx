@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useGetModelsQuery } from "../App/feature/model/modelApi";
+import { IModel } from "../App/feature/model/modelSlice";
+import { RootState } from "../App/store";
+import Loader from "../helpers/Loader";
 
 const Settings = () => {
+  const modelInfo = useSelector<RootState, IModel>((state) => state.model);
   const [isOpen, setOpen] = useState(false);
-  const [selectedValue, setValue] = useState("");
   const { isLoading, isSuccess, data: lists } = useGetModelsQuery();
   console.log({ lists });
   console.log(process.env.REACT_APP_API_URI);
@@ -13,7 +17,6 @@ const Settings = () => {
   };
 
   const onSelect = (val: string) => {
-    setValue(val);
     setOpen(false);
   };
 
@@ -21,7 +24,7 @@ const Settings = () => {
     <div className="setttings">
       <div className="settting-item selector">
         <button className="select-feild" onClick={toggleOpen}>
-          <p>Select Modal</p>
+          <p>{modelInfo.model}</p>
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,8 +44,8 @@ const Settings = () => {
 
         {isOpen && (
           <ul className="select-list">
-            {false ? (
-              <></>
+            {isLoading ? (
+              <Loader />
             ) : (
               <>
                 {lists?.map((list) => {
@@ -65,7 +68,7 @@ const Settings = () => {
       </div>
       <div className="settting-item">
         <label htmlFor="model">Temperature</label>
-        <input type={"number"} />
+        <input type={"number"} value={modelInfo.temperature} />
         <div className="notes">
           <p>0 - Logical</p>
           <p>0.5 - Balanced</p>

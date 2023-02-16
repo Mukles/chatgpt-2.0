@@ -1,4 +1,4 @@
-export const Like = (props: any) => (
+export const Like = (props?: any) => (
   <svg
     stroke="currentColor"
     fill="none"
@@ -16,7 +16,7 @@ export const Like = (props: any) => (
   </svg>
 );
 
-export const Unlike = (props: any) => (
+export const Unlike = (props?: any) => (
   <svg
     stroke="currentColor"
     fill="none"
@@ -34,7 +34,7 @@ export const Unlike = (props: any) => (
   </svg>
 );
 
-export const Chat = (props: any) => (
+export const Chat = (props?: any) => (
   <svg
     stroke="currentColor"
     fill="none"
@@ -52,7 +52,7 @@ export const Chat = (props: any) => (
   </svg>
 );
 
-export const Edit = (props: any) => {
+export const Edit = (props?: any) => {
   return (
     <svg
       stroke="currentColor"
@@ -71,7 +71,7 @@ export const Edit = (props: any) => {
   );
 };
 
-export const Delete = (props: any) => (
+export const Delete = (props?: any) => (
   <svg
     stroke="currentColor"
     fill="none"
@@ -88,7 +88,7 @@ export const Delete = (props: any) => (
   </svg>
 );
 
-export const Add = (props: any) => {
+export const Add = (props?: any) => {
   return (
     <svg
       stroke="currentColor"
@@ -107,7 +107,7 @@ export const Add = (props: any) => {
   );
 };
 
-export const Light = (props: any) => (
+export const Light = (props?: any) => (
   <svg
     stroke="currentColor"
     fill="none"
@@ -125,7 +125,7 @@ export const Light = (props: any) => (
   </svg>
 );
 
-export const Discord = (props: any) => (
+export const Discord = (props?: any) => (
   <svg
     stroke="currentColor"
     fill="currentColor"
@@ -141,7 +141,7 @@ export const Discord = (props: any) => (
   </svg>
 );
 
-export const FAQ = (props: any) => (
+export const FAQ = (props?: any) => (
   <svg
     stroke="currentColor"
     fill="none"
@@ -158,7 +158,7 @@ export const FAQ = (props: any) => (
   </svg>
 );
 
-export const Logout = (props: any) => (
+export const Logout = (props?: any) => (
   <svg
     stroke="currentColor"
     fill="none"
@@ -175,7 +175,7 @@ export const Logout = (props: any) => (
   </svg>
 );
 
-export const Submit = (props: any) => (
+export const Submit = (props?: any) => (
   <svg
     stroke="currentColor"
     fill="none"
@@ -192,7 +192,7 @@ export const Submit = (props: any) => (
   </svg>
 );
 
-export const Bars = (props: any) => (
+export const Bars = (props?: any) => (
   <svg
     stroke="currentColor"
     fill="none"
@@ -209,7 +209,7 @@ export const Bars = (props: any) => (
   </svg>
 );
 
-export const ChatGpt = (props: any) => (
+export const ChatGpt = (props?: any) => (
   <svg
     width={41}
     height={41}

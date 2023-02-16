@@ -35,6 +35,9 @@
   @include reset-link;
   display: flex;
   justify-content: space-between;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
   align-items: center;
   color: var(--white);
   padding: 12px 10px;

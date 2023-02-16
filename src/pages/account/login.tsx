@@ -1,12 +1,13 @@
 import { FastField, Form, Formik } from "formik";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../App/feature/user/userApi";
 import graphic from "../../assets/graphic.svg";
 import { ChatGpt } from "../../icons/Icons";
 import { loginSchema } from "../../validation/registationValidation";
 
 const Login = () => {
-  const [login, { data, isLoading }] = useLoginMutation();
+  const navigate = useNavigate();
+  const [login, { isLoading }] = useLoginMutation();
   return (
     <section>
       <div className="form-body">
@@ -51,8 +52,13 @@ const Login = () => {
                 <Formik
                   validationSchema={loginSchema}
                   initialValues={{ email: "", password: "" }}
-                  onSubmit={(values) => {
-                    login(values);
+                  onSubmit={(values, { resetForm }) => {
+                    login(values)
+                      .unwrap()
+                      .then((res) => {
+                        resetForm();
+                        navigate("/");
+                      });
                   }}
                 >
                   {({ values }) => {
@@ -76,7 +82,9 @@ const Login = () => {
                           />
                         </div>
                         <div className="submit">
-                          <button type="submit">Login</button>
+                          <button disabled={isLoading} type="submit">
+                            Login
+                          </button>
                           <Link to="/">Forget Password</Link>
                         </div>
                       </Form>
