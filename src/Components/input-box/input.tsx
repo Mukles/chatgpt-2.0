@@ -1,40 +1,61 @@
-import { useRef } from "react";
-import { useSelector } from "react-redux";
-import { useAddMessageMutation } from "../../App/feature/conversation/conversationApi";
-import { IModel } from "../../App/feature/model/modelSlice";
-import { RootState } from "../../App/store";
-import TextArea from "../../helpers/TextArea";
+import { ForwardedRef, forwardRef, RefAttributes } from "react";
 import { Submit } from "../../icons/Icons";
 
-export const InputBox = () => {
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const userId = useSelector<RootState, string>((state) => state.user._id);
-  const { model, temperature } = useSelector<RootState, IModel>(
-    (state) => state.model
-  );
-  const [addNewMessage, { isLoading, data }] = useAddMessageMutation();
-  const submitHandler = (e: any) => {
-    e.preventDefault();
-    if (!textAreaRef.current) return null;
-    const prompt = textAreaRef.current.value;
-    addNewMessage({ prompt, model, temperature, userId });
-  };
+interface Props {
+  submitHandler: any;
+  isLoading: boolean;
+  data: any;
+}
 
-  return (
-    <form onSubmit={submitHandler} className="input-container">
-      <div>
-        <div className="input">
-          <TextArea textAreaRef={textAreaRef} />
-          <button type="submit">
-            <Submit />
-          </button>
+interface Props extends RefAttributes<HTMLTextAreaElement> {
+  // add any other props for MyComponent here
+}
+
+export const InputBox = forwardRef(
+  (
+    { data, isLoading, submitHandler }: Props,
+    ref: ForwardedRef<HTMLTextAreaElement>
+  ) => {
+    const limit = 100;
+    let scrollHeightBefore = 0;
+    let less = false;
+
+    const adjustFont = (textarea: HTMLTextAreaElement) => {
+      scrollHeightBefore =
+        scrollHeightBefore !== 0 ? scrollHeightBefore : textarea.scrollHeight;
+      const scrollHeightAfter = less
+        ? scrollHeightBefore
+        : textarea.scrollHeight;
+
+      if (scrollHeightAfter > scrollHeightBefore) {
+        textarea.style.fontSize = "14px";
+        scrollHeightBefore = scrollHeightAfter;
+      }
+    };
+
+    const handleChange = (e: any) => {
+      const textarea = e.target;
+      textarea.style.height = ""; // reset the height
+      textarea.style.height = Math.min(textarea.scrollHeight, limit) + "px"; // set the height
+      adjustFont(e.target);
+    };
+
+    return (
+      <form onSubmit={submitHandler} className="input-container">
+        <div>
+          <div className="input">
+            <textarea ref={ref} onChange={handleChange} />
+            <button disabled={isLoading} type="submit">
+              <Submit />
+            </button>
+          </div>
+          <p>
+            ChatGPT Jan 30 Version. Free Research Preview. Our goal is to make
+            AI systems more natural and safe to interact with. Your feedback
+            will help us improve.
+          </p>
         </div>
-        <p>
-          ChatGPT Jan 30 Version. Free Research Preview. Our goal is to make AI
-          systems more natural and safe to interact with. Your feedback will
-          help us improve.
-        </p>
-      </div>
-    </form>
-  );
-};
+      </form>
+    );
+  }
+);

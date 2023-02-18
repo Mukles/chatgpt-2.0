@@ -1,16 +1,26 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../App/store";
 import ChatItem from "../Components/chat/chatItem";
+import withAddNewMessage from "../HOC/withAddNewMessage";
+interface Props {
+  isAdding: boolean;
+}
+const Chat = ({ isAdding }: Props) => {
+  const conversations = useSelector<RootState, any>(
+    (state) => state.conversation
+  );
 
-const Chat = () => {
   return (
     <>
-      {[...Array(20)].map((item, i: number) => {
-        return <ChatItem key={i} text={i} i={i} />;
+      {conversations?.map((conversation: any, i: number) => {
+        return <ChatItem key={i} messageText={conversation} />;
       })}
-      {[...Array(20)].map((item, i) => {
-        return <ChatItem key={i} text={i} i={i} />;
-      })}
+
+      {isAdding && (
+        <ChatItem messageText={{ message: "Loading...", sender: "gpt" }} />
+      )}
     </>
   );
 };
 
-export default Chat;
+export default withAddNewMessage(Chat);

@@ -1,17 +1,35 @@
+import { useParams } from "react-router-dom";
+import { useGetMessagesQuery } from "../App/feature/conversation/conversationApi";
 import ChatItem from "../Components/chat/chatItem";
+import Loader from "../helpers/Loader";
+import withAddNewMessage from "../HOC/withAddNewMessage";
 
-const Home = () => {
+interface Props {
+  isAdding: boolean;
+}
+
+const Home = ({ isAdding }: Props) => {
+  const { chatId } = useParams();
+  const { data: messagesList, isLoading } = useGetMessagesQuery(chatId, {
+    skip: !chatId,
+  });
+
   return (
     <>
-      {[...Array(20)].map((item, i: number) => {
-        return <ChatItem key={i} text={i} i={i} />;
-      })}
-
-      {[...Array(20)].map((item, i) => {
-        return <ChatItem key={i} text={i} i={i} />;
-      })}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          {messagesList?.map((message: any, i: number) => {
+            return <ChatItem key={i} messageText={message} />;
+          })}
+          {isAdding && (
+            <ChatItem messageText={{ message: "Loading...", sender: "gpt" }} />
+          )}
+        </>
+      )}
     </>
   );
 };
 
-export default Home;
+export default withAddNewMessage(Home);

@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
-import { InputBox } from "../Components/input-box/input";
 import Sidebar from "../Components/sidebar";
 import { useWidth } from "../hooks/useWidth";
 import { Add } from "../icons/Icons";
@@ -85,7 +84,6 @@ const Layout = () => {
           <div>
             <Outlet />
           </div>
-          <InputBox />
         </main>
       </div>
     </>

@@ -1,19 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useGetMessagesQuery } from "../../App/feature/conversation/conversationApi";
+import { useGetConversationQuery } from "../../App/feature/conversation/conversationApi";
 import { setUserDetails } from "../../App/feature/user/userSlice";
 import { RootState } from "../../App/store";
 import { data } from "../../data/data";
 import Loader from "../../helpers/Loader";
 import { Chat, Delete, Edit } from "../../icons/Icons";
 import ConversationItem from "./conversationItem";
-
 const ListContainer = () => {
-  const userId = useSelector<RootState, string>((state) => state.user._id);
-  const { data: conversations, isLoading } = useGetMessagesQuery(userId);
-
-  console.log({ conversations });
   const dispatch = useDispatch();
+  const userId = useSelector<RootState, string>((state) => state.user._id);
+  const { data: conversations, isLoading } = useGetConversationQuery(userId);
 
   const logOut = (item: any) => {
     if (item.text !== "Log out") return;
@@ -34,7 +31,7 @@ const ListContainer = () => {
                 <ConversationItem key={_id}>
                   <li>
                     <Link
-                      to={"/"}
+                      to={`/chat/${_id}`}
                       className={`single-chat ${true ? "active" : ""}`}
                     >
                       <p>
@@ -66,7 +63,7 @@ const ListContainer = () => {
             <ConversationItem key={i}>
               <li>
                 <button className={`single-chat`} onClick={() => logOut(item)}>
-                  <p>
+                  <p className="flex-none">
                     {item.icon()}
                     <span>{item.text}</span>
                   </p>
@@ -74,16 +71,6 @@ const ListContainer = () => {
               </li>
             </ConversationItem>
           ))}
-          <ConversationItem>
-            <li>
-              <button className={`single-chat`}>
-                <p>
-                  <Delete />
-                  <span>Clear conversations</span>
-                </p>
-              </button>
-            </li>
-          </ConversationItem>
         </ul>
       </div>
     </div>

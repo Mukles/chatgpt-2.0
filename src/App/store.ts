@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./feature/apiSlice";
+import { conversationSlice } from "./feature/conversation/conversationSlice";
 import { modelSlice } from "./feature/model/modelSlice";
 import { userSlice } from "./feature/user/userSlice";
 
@@ -8,6 +9,7 @@ export const configStore = () =>
     reducer: {
       [userSlice.name]: userSlice.reducer,
       [modelSlice.name]: modelSlice.reducer,
+      [conversationSlice.name]: conversationSlice.reducer,
       [apiSlice.reducerPath]: apiSlice.reducer,
     },
 

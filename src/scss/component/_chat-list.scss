@@ -60,12 +60,20 @@
     align-items: center;
     flex: 1;
 
+    &.flex-none {
+      flex: none;
+      span {
+        width: auto;
+      }
+    }
+
     & > span {
       white-space: nowrap;
       width: 50px;
       overflow: hidden;
       text-overflow: ellipsis;
       flex: 1;
+      margin-right: 10px;
     }
 
     & > svg {

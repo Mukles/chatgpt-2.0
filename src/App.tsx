@@ -45,6 +45,11 @@ function App() {
         },
 
         {
+          path: "chat/:chatId",
+          element: <Home />,
+        },
+
+        {
           path: "chat",
           element: <Chat />,
         },
