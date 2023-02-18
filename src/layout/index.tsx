@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
+import { clear } from "../App/feature/conversation/conversationSlice";
 import Header from "../Components/Header";
 import Sidebar from "../Components/sidebar";
 import { useWidth } from "../hooks/useWidth";
@@ -9,6 +11,7 @@ import { Add } from "../icons/Icons";
 const Layout = () => {
   const width = useWidth();
   const navigator = useNavigate();
+  const dispatch = useDispatch();
 
   let [open, setOpen] = useState<boolean>();
   const onClose = (e: any) => {
@@ -66,7 +69,10 @@ const Layout = () => {
                 >
                   <button
                     className="create-new-chat"
-                    onClick={() => navigator("/chat")}
+                    onClick={() => {
+                      navigator("/chat");
+                      dispatch(clear());
+                    }}
                   >
                     <span>
                       <Add />

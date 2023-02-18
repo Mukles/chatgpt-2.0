@@ -10,9 +10,12 @@ interface Props {
 
 const Home = ({ isAdding }: Props) => {
   const { chatId } = useParams();
-  const { data: messagesList, isLoading } = useGetMessagesQuery(chatId, {
-    skip: !chatId,
-  });
+  const { data: messagesList, isLoading } = useGetMessagesQuery(
+    chatId as string,
+    {
+      skip: !chatId,
+    }
+  );
 
   return (
     <>

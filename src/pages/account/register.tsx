@@ -1,4 +1,4 @@
-import { FastField, Form, Formik } from "formik";
+import { ErrorMessage, FastField, Form, Formik } from "formik";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../../App/feature/user/userApi";
 import graphic from "../../assets/graphic.svg";
@@ -64,7 +64,8 @@ const Register = () => {
                       .catch((err) => {});
                   }}
                 >
-                  {({ values: { email, name, password } }) => {
+                  {({ values: { email, name, password }, errors }) => {
+                    console.log({ errors });
                     return (
                       <Form>
                         <div>
@@ -74,6 +75,7 @@ const Register = () => {
                             type="text"
                             value={name}
                           />
+                          <ErrorMessage name="name" component="div" />
                         </div>
                         <div>
                           <FastField
@@ -82,6 +84,7 @@ const Register = () => {
                             type="email"
                             value={email}
                           />
+                          <ErrorMessage name="email" component="div" />
                         </div>
 
                         <div>
@@ -91,6 +94,7 @@ const Register = () => {
                             type="password"
                             value={password}
                           />
+                          <ErrorMessage name="password" component="div" />
                         </div>
                         <div className="submit">
                           <button disabled={isLoading} type="submit">

@@ -21,16 +21,11 @@ export const useAddMessage = (
     if (!textAreaRef.current) return null;
     const prompt = textAreaRef.current.value;
 
-    if (chatId || data?._id) {
-      console.log({ condition: "true" });
-    }
-
+    //generate pramas depending on chat or data
     const params =
       chatId || data?._id
         ? { prompt, model, temperature, chatId: chatId ?? data?._id }
         : { prompt, model, temperature, userId };
-
-    console.log(params);
 
     !chatId && dispatch(add({ sender: "user", message: prompt }));
 

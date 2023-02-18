@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetConversationQuery } from "../../App/feature/conversation/conversationApi";
 import { setUserDetails } from "../../App/feature/user/userSlice";
 import { RootState } from "../../App/store";
@@ -7,8 +7,10 @@ import { data } from "../../data/data";
 import Loader from "../../helpers/Loader";
 import { Chat, Delete, Edit } from "../../icons/Icons";
 import ConversationItem from "./conversationItem";
+
 const ListContainer = () => {
   const dispatch = useDispatch();
+  const { chatId } = useParams();
   const userId = useSelector<RootState, string>((state) => state.user._id);
   const { data: conversations, isLoading } = useGetConversationQuery(userId);
 
@@ -25,21 +27,22 @@ const ListContainer = () => {
           {isLoading ? (
             <Loader />
           ) : (
-            conversations.map((conversation: any, i: number) => {
+            conversations?.map((conversation, i: number) => {
               const { firstMessage, _id } = conversation;
+              const isActive = chatId === conversation._id;
               return (
                 <ConversationItem key={_id}>
                   <li>
                     <Link
                       to={`/chat/${_id}`}
-                      className={`single-chat ${true ? "active" : ""}`}
+                      className={`single-chat ${isActive ? "active" : ""}`}
                     >
                       <p>
                         <Chat />
                         <span>{firstMessage}</span>
                       </p>
 
-                      {true && (
+                      {isActive && (
                         <div>
                           <button>
                             <Edit />

@@ -15,7 +15,7 @@ export const conversationSlice = createSlice({
       return [...state, payload];
     },
     clear: (state) => {
-      state = [];
+      return (state = []);
     },
   },
 });

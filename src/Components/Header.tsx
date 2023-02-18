@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Add, Bars } from "../icons/Icons";
 
 interface Props {
@@ -5,6 +6,7 @@ interface Props {
 }
 
 const Header = ({ setOpen }: Props) => {
+  const navigate = useNavigate();
   return (
     <header>
       <nav>
@@ -18,7 +20,7 @@ const Header = ({ setOpen }: Props) => {
             <p>Interview Info for Developer</p>
           </li>
           <li>
-            <button>
+            <button onClick={() => navigate("/chat")}>
               <Add />
             </button>
           </li>

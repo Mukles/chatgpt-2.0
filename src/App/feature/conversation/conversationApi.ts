@@ -22,6 +22,12 @@ interface IUpdateMessage {
   messages?: Array<IResponseMessage>;
 }
 
+interface IConversation {
+  _id: string;
+  firstMessage: string;
+  userId: string;
+}
+
 const conversationApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     addMessage: build.mutation<IUpdateMessage, IMessage>({
@@ -37,7 +43,7 @@ const conversationApi = apiSlice.injectEndpoints({
         dispatch(
           conversationApi.util.updateQueryData(
             "getMessages",
-            chatId,
+            chatId as string,
             (draftMessage: Array<IResponseMessage>) => {
               draftMessage.push({ sender: "user", message: prompt });
             }
@@ -45,37 +51,43 @@ const conversationApi = apiSlice.injectEndpoints({
         );
         try {
           const result = await queryFulfilled;
-          console.log({ result });
-          /*if (chatId) {*/
+          const { _id, firstMessage } = result.data || {};
+
+          userId &&
+            firstMessage &&
+            dispatch(
+              conversationApi.util.updateQueryData(
+                "getConversation",
+                userId as string,
+                (draftConversations) => {
+                  draftConversations.unshift({ _id, firstMessage, userId });
+                }
+              )
+            );
+
           dispatch(
             conversationApi.util.updateQueryData(
               "getMessages",
-              chatId,
+              chatId as string,
               (draftMessage: Array<IResponseMessage>) => {
                 draftMessage.push(result.data.newMessage);
               }
             )
           );
-          /* }  else {
-            const newMessage = result.data?.messages?.length
-              ? result.data.messages[1]
-              : { sender: "gpt", message: "something went wrong" };
-            dispatch(add(newMessage));
-          }*/
         } catch (error) {}
       },
     }),
 
-    getConversation: build.query<any, any>({
+    getConversation: build.query<Array<IConversation>, string>({
       query: (userId) => ({
         url: `/gpt/conversation/${userId}`,
         method: "GET",
       }),
     }),
 
-    getMessages: build.query<any, any>({
+    getMessages: build.query<any, string>({
       query: (chatId) => ({
-        url: `/gpt/message/${chatId ?? ""}`,
+        url: `/gpt/message/${chatId}`,
         method: "GET",
       }),
     }),

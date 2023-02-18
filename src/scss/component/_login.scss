@@ -134,13 +134,21 @@
     form {
       margin-bottom: 30px;
 
+      & > div:nth-last-child(-n + 2) input + div {
+        margin-bottom: 10px;
+      }
+
       input {
         @include reset-button;
         width: 100%;
         display: block;
-        margin-block: 12px;
+        margin-block: 10px;
         padding: 12px 10px;
         border-radius: 6px;
+        background-color: var(--white);
+        & + div {
+          color: rgba(255, 0, 0, 0.549);
+        }
       }
 
       .submit {
