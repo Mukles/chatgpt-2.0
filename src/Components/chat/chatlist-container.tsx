@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { useGetConversationQuery } from "../../App/feature/conversation/conversationApi";
+import {
+  useClearConversationMutation,
+  useDeleteConversationMutation,
+  useGetConversationQuery,
+} from "../../App/feature/conversation/conversationApi";
 import { setUserDetails } from "../../App/feature/user/userSlice";
 import { RootState } from "../../App/store";
 import { data } from "../../data/data";
@@ -13,6 +17,8 @@ const ListContainer = () => {
   const { chatId } = useParams();
   const userId = useSelector<RootState, string>((state) => state.user._id);
   const { data: conversations, isLoading } = useGetConversationQuery(userId);
+  const [onDelete, { isLoading: isDeleting }] = useDeleteConversationMutation();
+  const [clearAll, { isLoading: isClearing }] = useClearConversationMutation();
 
   const logOut = (item: any) => {
     if (item.text !== "Log out") return;
@@ -47,7 +53,12 @@ const ListContainer = () => {
                           <button>
                             <Edit />
                           </button>
-                          <button>
+                          <button
+                            disabled={isDeleting}
+                            onClick={() =>
+                              onDelete({ userId, conversationId: _id })
+                            }
+                          >
                             <Delete />
                           </button>
                         </div>
@@ -62,18 +73,27 @@ const ListContainer = () => {
       </div>
       <div className="aside-bottom">
         <ul className="chatlist-continaer">
-          {data.map((item, i: number) => (
-            <ConversationItem key={i}>
-              <li>
-                <button className={`single-chat`} onClick={() => logOut(item)}>
-                  <p className="flex-none">
-                    {item.icon()}
-                    <span>{item.text}</span>
-                  </p>
-                </button>
-              </li>
-            </ConversationItem>
-          ))}
+          {data.map((item, i: number) => {
+            const clickHanler =
+              item.text === "Clear conversations"
+                ? clearAll(userId)
+                : logOut(item);
+            return (
+              <ConversationItem key={i}>
+                <li>
+                  <button
+                    className={`single-chat`}
+                    onClick={() => logOut(item)}
+                  >
+                    <p className="flex-none">
+                      {item.icon()}
+                      <span>{item.text}</span>
+                    </p>
+                  </button>
+                </li>
+              </ConversationItem>
+            );
+          })}
         </ul>
       </div>
     </div>

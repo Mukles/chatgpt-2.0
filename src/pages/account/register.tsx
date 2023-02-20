@@ -1,7 +1,8 @@
-import { ErrorMessage, FastField, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../../App/feature/user/userApi";
 import graphic from "../../assets/graphic.svg";
+import CustomInput from "../../helpers/custom-input";
 import { ChatGpt } from "../../icons/Icons";
 import { registerSchema } from "../../validation/registationValidation";
 
@@ -53,48 +54,62 @@ const Register = () => {
 
                 <Formik
                   validationSchema={registerSchema}
-                  initialValues={{ name: "", email: "", password: "" }}
-                  onSubmit={(values, { resetForm }) => {
-                    register(values)
-                      .unwrap()
-                      .then(() => {
-                        state?.from && navigate("/");
-                        resetForm();
-                      })
-                      .catch((err) => {});
+                  initialValues={{
+                    name: "",
+                    email: "",
+                    password: "",
+                    file: "",
+                  }}
+                  onSubmit={async (values, { resetForm }) => {
+                    try {
+                      await register(values);
+                      state?.from && navigate("/");
+                      resetForm();
+                    } catch (error: any) {
+                      alert(error?.data?.message);
+                    }
                   }}
                 >
-                  {({ values: { email, name, password }, errors }) => {
-                    console.log({ errors });
+                  {({ values: { email, name, password }, setFieldValue }) => {
                     return (
                       <Form>
                         <div>
-                          <FastField
+                          <CustomInput
                             name="name"
                             placeholder="Full Name"
                             type="text"
                             value={name}
                           />
-                          <ErrorMessage name="name" component="div" />
                         </div>
                         <div>
-                          <FastField
+                          <CustomInput
                             name="email"
                             placeholder="E-mail Address"
                             type="email"
                             value={email}
                           />
-                          <ErrorMessage name="email" component="div" />
                         </div>
 
                         <div>
-                          <FastField
+                          <input
+                            onChange={(event: any) => {
+                              setFieldValue(
+                                "file",
+                                event.currentTarget.files[0]
+                              );
+                            }}
+                            type={"file"}
+                            name="file"
+                          />
+                        </div>
+
+                        <div>
+                          <CustomInput
                             name="password"
                             placeholder="Password"
                             type="password"
                             value={password}
                           />
-                          <ErrorMessage name="password" component="div" />
                         </div>
                         <div className="submit">
                           <button disabled={isLoading} type="submit">

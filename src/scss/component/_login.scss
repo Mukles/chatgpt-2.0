@@ -146,6 +146,11 @@
         padding: 12px 10px;
         border-radius: 6px;
         background-color: var(--white);
+
+        &.input-error {
+          outline: 3px solid red;
+        }
+
         & + div {
           color: rgba(255, 0, 0, 0.549);
         }

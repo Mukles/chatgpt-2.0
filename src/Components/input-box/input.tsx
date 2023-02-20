@@ -1,4 +1,5 @@
 import { ForwardedRef, forwardRef, RefAttributes } from "react";
+import ThreeDotsLoader from "../../helpers/Three-dots-loader";
 import { Submit } from "../../icons/Icons";
 
 interface Props {
@@ -7,9 +8,7 @@ interface Props {
   data: any;
 }
 
-interface Props extends RefAttributes<HTMLTextAreaElement> {
-  // add any other props for MyComponent here
-}
+interface Props extends RefAttributes<HTMLTextAreaElement> {}
 
 export const InputBox = forwardRef(
   (
@@ -35,8 +34,10 @@ export const InputBox = forwardRef(
 
     const handleChange = (e: any) => {
       const textarea = e.target;
-      textarea.style.height = ""; // reset the height
-      textarea.style.height = Math.min(textarea.scrollHeight, limit) + "px"; // set the height
+      // reset the height
+      textarea.style.height = "";
+      // set the height
+      textarea.style.height = Math.min(textarea.scrollHeight, limit) + "px";
       adjustFont(e.target);
     };
 
@@ -46,7 +47,7 @@ export const InputBox = forwardRef(
           <div className="input">
             <textarea ref={ref} onChange={handleChange} />
             <button disabled={isLoading} type="submit">
-              <Submit />
+              {isLoading ? <ThreeDotsLoader /> : <Submit />}
             </button>
           </div>
           <p>

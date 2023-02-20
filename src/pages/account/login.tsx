@@ -1,7 +1,8 @@
-import { FastField, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../App/feature/user/userApi";
 import graphic from "../../assets/graphic.svg";
+import CustomInput from "../../helpers/custom-input";
 import { ChatGpt } from "../../icons/Icons";
 import { loginSchema } from "../../validation/registationValidation";
 
@@ -52,30 +53,30 @@ const Login = () => {
                 <Formik
                   validationSchema={loginSchema}
                   initialValues={{ email: "", password: "" }}
-                  onSubmit={(values, { resetForm }) => {
-                    login(values)
-                      .unwrap()
-                      .then((res) => {
-                        resetForm();
-                        navigate("/");
-                      });
+                  onSubmit={async (values) => {
+                    try {
+                      await login(values).unwrap();
+                      navigate("/");
+                    } catch (error: any) {
+                      alert(error?.data?.message);
+                    }
                   }}
                 >
-                  {({ values }) => {
+                  {({ values: { email, password } }) => {
                     return (
                       <Form>
                         <div>
-                          <FastField
-                            value={values.email}
+                          <CustomInput
                             name="email"
                             placeholder="E-mail Address"
                             type="email"
+                            value={email}
                           />
                         </div>
 
                         <div>
-                          <FastField
-                            value={values.password}
+                          <CustomInput
+                            value={password}
                             name="password"
                             placeholder="Password"
                             type="password"

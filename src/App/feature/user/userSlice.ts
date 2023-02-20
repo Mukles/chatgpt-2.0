@@ -6,6 +6,7 @@ const user: Omit<IUser, "password"> = {
   email: "",
   name: "",
   token: "",
+  image: "",
 };
 
 export const userSlice = createSlice({

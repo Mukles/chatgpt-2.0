@@ -13,6 +13,7 @@ html {
   overflow-x: hidden;
   scroll-behavior: smooth;
   overflow: hidden;
+  background-color: var(--blue-gray);
 }
 
 input::-webkit-outer-spin-button,
@@ -32,6 +33,7 @@ input[type="number"] {
 
 body {
   height: 100dvh;
+  background-color: var(--blue-gray);
 }
 
 main {
@@ -42,6 +44,10 @@ main {
     height: 100%;
     overflow-y: auto;
     padding-bottom: 100px;
+
+    @media (max-width: $sm) {
+      padding-bottom: 110px;
+    }
 
     &:hover ::-webkit-scrollbar {
       width: 20px;

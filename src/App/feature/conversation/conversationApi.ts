@@ -22,9 +22,20 @@ interface IUpdateMessage {
   messages?: Array<IResponseMessage>;
 }
 
+interface IGetMessages {
+  _id: string;
+  firstMessage: string;
+  messages: Array<IResponseMessage>;
+}
+
 interface IConversation {
   _id: string;
   firstMessage: string;
+  userId: string;
+}
+
+interface IDeleteConversation {
+  conversationId: string;
   userId: string;
 }
 
@@ -44,8 +55,8 @@ const conversationApi = apiSlice.injectEndpoints({
           conversationApi.util.updateQueryData(
             "getMessages",
             chatId as string,
-            (draftMessage: Array<IResponseMessage>) => {
-              draftMessage.push({ sender: "user", message: prompt });
+            (draftMessage) => {
+              draftMessage.messages.push({ sender: "user", message: prompt });
             }
           )
         );
@@ -69,8 +80,8 @@ const conversationApi = apiSlice.injectEndpoints({
             conversationApi.util.updateQueryData(
               "getMessages",
               chatId as string,
-              (draftMessage: Array<IResponseMessage>) => {
-                draftMessage.push(result.data.newMessage);
+              (draftMessage) => {
+                draftMessage.messages.push(result.data.newMessage);
               }
             )
           );
@@ -85,7 +96,60 @@ const conversationApi = apiSlice.injectEndpoints({
       }),
     }),
 
-    getMessages: build.query<any, string>({
+    deleteConversation: build.mutation<any, IDeleteConversation>({
+      query: ({ conversationId }) => ({
+        method: "DELETE",
+        url: `/gpt/conversation/${conversationId}`,
+      }),
+      async onQueryStarted(
+        { userId, conversationId },
+        { queryFulfilled, dispatch }
+      ) {
+        const patchResult = dispatch(
+          conversationApi.util.updateQueryData(
+            "getConversation",
+            userId,
+            (draftConversation) => {
+              return draftConversation.filter(
+                (conversation) => conversation._id !== conversationId
+              );
+            }
+          )
+        );
+
+        try {
+          await queryFulfilled;
+        } catch (error) {
+          patchResult.undo();
+        }
+      },
+    }),
+
+    clearConversation: build.mutation<any, string>({
+      query: (userId) => ({
+        method: "DELETE",
+        url: `/gpt/clear/${userId}`,
+      }),
+
+      async onQueryStarted(userId, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          conversationApi.util.updateQueryData(
+            "getConversation",
+            userId,
+            (draftConversation) => {
+              return (draftConversation = []);
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch (error) {
+          patchResult.undo();
+        }
+      },
+    }),
+
+    getMessages: build.query<IGetMessages, string>({
       query: (chatId) => ({
         url: `/gpt/message/${chatId}`,
         method: "GET",
@@ -98,4 +162,6 @@ export const {
   useAddMessageMutation,
   useGetMessagesQuery,
   useGetConversationQuery,
+  useDeleteConversationMutation,
+  useClearConversationMutation,
 } = conversationApi;

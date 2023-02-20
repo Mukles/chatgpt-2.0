@@ -6,8 +6,8 @@ export interface IModel {
 }
 
 const modelInfo: IModel = {
-  model: "davinci",
-  temperature: 0.5,
+  model: "text-davinci-003",
+  temperature: 0,
 };
 
 export const modelSlice = createSlice({

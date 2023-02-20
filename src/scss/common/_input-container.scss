@@ -59,6 +59,11 @@
     color: var(--white);
     background-color: transparent;
 
+    &:disabled :hover,
+    &[disabled]:hover {
+      background-color: transparent;
+    }
+
     svg {
       width: 16px;
       height: 16px;

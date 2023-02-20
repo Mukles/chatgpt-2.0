@@ -17,7 +17,7 @@ const Header = ({ setOpen }: Props) => {
             </button>
           </li>
           <li>
-            <p>Interview Info for Developer</p>
+            <p className="nav-title"></p>
           </li>
           <li>
             <button onClick={() => navigate("/chat")}>

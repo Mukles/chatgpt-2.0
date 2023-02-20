@@ -20,6 +20,14 @@ export const useAddMessage = (
     e.preventDefault();
     if (!textAreaRef.current) return null;
     const prompt = textAreaRef.current.value;
+    const wrapper = document.querySelector(
+      "main > div:first-child"
+    ) as HTMLElement;
+
+    wrapper.scrollTop = wrapper.scrollHeight;
+
+    console.log({ top: wrapper.scrollHeight });
+    console.log({ client: wrapper.clientHeight });
 
     //generate pramas depending on chat or data
     const params =
@@ -31,6 +39,7 @@ export const useAddMessage = (
 
     try {
       const response = await addMessage(params).unwrap();
+
       const newMessage =
         chatId || data?._id
           ? response.newMessage
@@ -39,7 +48,7 @@ export const useAddMessage = (
           : { sender: "gpt", message: "something went wrong" };
       dispatch(add(newMessage));
     } catch (err) {
-      console.log(err);
+      dispatch(add({ sender: "gpt", message: "something went wrong" }));
     }
   };
 

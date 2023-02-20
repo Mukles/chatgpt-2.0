@@ -7,6 +7,7 @@ export interface IUser {
   email: string;
   password: string;
   token: string;
+  image?: string;
 }
 
 interface ILogin {
@@ -20,11 +21,17 @@ const userApi = apiSlice.injectEndpoints({
       Omit<IUser, "password">,
       Omit<IUser, "token" | "_id">
     >({
-      query: (data) => ({
-        method: "POST",
-        url: "/user/register",
-        body: data,
-      }),
+      query: (data) => {
+        const formdata = new FormData();
+        const keys = Object.keys(data);
+        keys.forEach((key) => formdata.append(key, (data as any)[key]));
+        console.log(formdata.getAll("name"));
+        return {
+          method: "POST",
+          url: "/user/register",
+          body: formdata,
+        };
+      },
 
       async onQueryStarted(args, { queryFulfilled, dispatch }) {
         try {
