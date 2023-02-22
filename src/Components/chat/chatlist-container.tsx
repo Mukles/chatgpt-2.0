@@ -81,7 +81,11 @@ const ListContainer = () => {
             return (
               <ConversationItem key={i}>
                 <li>
-                  <button className={`single-chat`} onClick={clickHanler}>
+                  <button
+                    disabled={item.text === "Clear conversations" && isClearing}
+                    className={`single-chat`}
+                    onClick={clickHanler}
+                  >
                     <p className="flex-none">
                       {item.icon()}
                       <span>{item.text}</span>
