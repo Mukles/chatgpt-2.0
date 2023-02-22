@@ -5,14 +5,17 @@ import { useAddMessage } from "../hooks/useAddNewMessage";
 const withAddNewMessage = (Component: any) => {
   return () => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    const { isLoading, submitHandler, data } = useAddMessage(textAreaRef);
+    const { isLoading, submitHandler, newResponse } =
+      useAddMessage(textAreaRef);
+
     return (
       <>
-        <Component isAdding={isLoading} />
+        <div className="messages-wrapper">
+          <Component newMessageId={newResponse} isAdding={isLoading} />
+        </div>
         <InputBox
           submitHandler={submitHandler}
           isLoading={isLoading}
-          data={data}
           ref={textAreaRef}
         />
       </>

@@ -43,10 +43,9 @@ main {
   & > div:first-child {
     height: 100%;
     overflow-y: auto;
-    padding-bottom: 100px;
 
-    @media (max-width: $sm) {
-      padding-bottom: 110px;
+    .messages-wrapper {
+      padding-bottom: 165px;
     }
 
     &:hover ::-webkit-scrollbar {

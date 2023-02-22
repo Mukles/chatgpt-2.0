@@ -1,37 +1,42 @@
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { toggleAnimation } from "../App/feature/user/other";
 
 type AnimatedTextProps = {
   text: string;
-  isGpt: boolean;
 };
 
 const characterAnimation = {
   hidden: {
-    opacity: 0,
-    y: 50,
+    display: "none",
   },
   visible: {
-    opacity: 1,
-    y: 0,
+    display: "inline",
   },
 };
 
 const sentence = {
-  hidden: { opacity: 1 },
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { deay: 0.08, staggerChildren: 0.02 },
+    transition: { staggerChildren: 0.03 },
   },
 };
 
-const AnimatedText: React.FC<AnimatedTextProps> = ({ text, isGpt }) => {
-  const animatedText = isGpt ? text.split("") : [];
+const AnimatedText: React.FC<AnimatedTextProps> = ({ text }) => {
+  const dispatch = useDispatch();
+  const animatedText = text.split("");
 
-  return isGpt ? (
+  const onAnimationDone = () => {
+    dispatch(toggleAnimation());
+  };
+
+  return (
     <motion.p
+      onAnimationComplete={onAnimationDone}
       variants={sentence}
-      initial="hidden"
-      animate="visible"
+      initial={"hidden"}
+      animate={"visible"}
       className="animate-text"
     >
       {animatedText.map((text, i) => (
@@ -40,8 +45,6 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({ text, isGpt }) => {
         </motion.span>
       ))}
     </motion.p>
-  ) : (
-    <p>{text}</p>
   );
 };
 

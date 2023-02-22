@@ -9,15 +9,20 @@ import withAddNewMessage from "../HOC/withAddNewMessage";
 
 interface Props {
   isAdding: boolean;
+  newMessageId: string;
 }
 
-const Home = ({ isAdding }: Props) => {
+const Home = ({ isAdding, newMessageId }: Props) => {
   const { chatId } = useParams();
   const { data: messageContainer, isLoading } = useGetMessagesQuery(
     chatId as string
   );
   const messagesList = messageContainer?.messages;
   const navTitle = document.querySelector(".nav-title");
+
+  console.log(navTitle);
+
+  console.log(messageContainer);
 
   useEffect(() => {
     const wrapper = document.querySelector(
@@ -32,19 +37,28 @@ const Home = ({ isAdding }: Props) => {
       {isLoading ? (
         <Loader />
       ) : (
-        <AnimatePresence initial={false}>
-          {navTitle &&
-            createPortal(
-              messageContainer?.firstMessage,
-              document.querySelector(".nav-title") as HTMLElement
-            )}
-          {messagesList?.map((message: any, i: number) => {
-            return <ChatItem key={i} messageText={message} />;
-          })}
-          {isAdding && (
-            <ChatItem messageText={{ message: "Loading...", sender: "gpt" }} />
+        <>
+          {createPortal(
+            messageContainer?.firstMessage,
+            navTitle as HTMLElement
           )}
-        </AnimatePresence>
+          <AnimatePresence initial={false}>
+            {messagesList?.map((message, i: number) => {
+              return (
+                <ChatItem
+                  key={i}
+                  newMessageId={newMessageId}
+                  messageText={message}
+                />
+              );
+            })}
+            {isAdding && (
+              <ChatItem
+                messageText={{ message: "Loading...", sender: "gpt" }}
+              />
+            )}
+          </AnimatePresence>
+        </>
       )}
     </>
   );

@@ -1,23 +1,28 @@
 import { ForwardedRef, forwardRef, RefAttributes } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../App/store";
 import ThreeDotsLoader from "../../helpers/Three-dots-loader";
 import { Submit } from "../../icons/Icons";
 
 interface Props {
   submitHandler: any;
   isLoading: boolean;
-  data: any;
 }
 
 interface Props extends RefAttributes<HTMLTextAreaElement> {}
 
 export const InputBox = forwardRef(
   (
-    { data, isLoading, submitHandler }: Props,
+    { isLoading, submitHandler }: Props,
     ref: ForwardedRef<HTMLTextAreaElement>
   ) => {
     const limit = 100;
     let scrollHeightBefore = 0;
     let less = false;
+
+    const isDone = useSelector<RootState, boolean>(
+      (state) => state.other.isAnimateDone
+    );
 
     const adjustFont = (textarea: HTMLTextAreaElement) => {
       scrollHeightBefore =
@@ -46,8 +51,8 @@ export const InputBox = forwardRef(
         <div>
           <div className="input">
             <textarea ref={ref} onChange={handleChange} />
-            <button disabled={isLoading} type="submit">
-              {isLoading ? <ThreeDotsLoader /> : <Submit />}
+            <button disabled={isLoading || !isDone} type="submit">
+              {isLoading || !isDone ? <ThreeDotsLoader /> : <Submit />}
             </button>
           </div>
           <p>

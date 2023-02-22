@@ -76,15 +76,12 @@ const ListContainer = () => {
           {data.map((item, i: number) => {
             const clickHanler =
               item.text === "Clear conversations"
-                ? clearAll(userId)
-                : logOut(item);
+                ? () => clearAll(userId)
+                : () => logOut(item);
             return (
               <ConversationItem key={i}>
                 <li>
-                  <button
-                    className={`single-chat`}
-                    onClick={() => logOut(item)}
-                  >
+                  <button className={`single-chat`} onClick={clickHanler}>
                     <p className="flex-none">
                       {item.icon()}
                       <span>{item.text}</span>

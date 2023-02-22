@@ -12,9 +12,10 @@ interface IMessage {
 
 interface Props {
   messageText: IMessage;
+  newMessageId?: string;
 }
 
-const ChatItem = ({ messageText }: Props) => {
+const ChatItem = ({ messageText, newMessageId }: Props) => {
   let image = useSelector<RootState, string | undefined>(
     (state) => state.user.image
   );
@@ -31,16 +32,22 @@ const ChatItem = ({ messageText }: Props) => {
           {isGpt ? <ChatGpt /> : <img src={profile} alt="" />}
         </div>
         <div className="content">
-          <AnimatedText isGpt={isGpt} text={message} />
+          {newMessageId && newMessageId === messageText._id && isGpt ? (
+            <AnimatedText text={message} />
+          ) : (
+            <p>{message}</p>
+          )}
 
-          <div className="icons">
-            <button type="button">
-              <Like />
-            </button>
-            <button type="button">
-              <Unlike />
-            </button>
-          </div>
+          {isGpt && (
+            <div className="icons">
+              <button type="button">
+                <Like />
+              </button>
+              <button type="button">
+                <Unlike />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

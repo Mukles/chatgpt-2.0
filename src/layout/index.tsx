@@ -87,7 +87,7 @@ const Layout = () => {
         )}
 
         <main>
-          <div>
+          <div className="main-container">
             <Outlet />
           </div>
         </main>

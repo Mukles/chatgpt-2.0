@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./feature/apiSlice";
 import { conversationSlice } from "./feature/conversation/conversationSlice";
 import { modelSlice } from "./feature/model/modelSlice";
+import { otherSlice } from "./feature/user/other";
 import { userSlice } from "./feature/user/userSlice";
 
 export const configStore = () =>
@@ -11,6 +12,7 @@ export const configStore = () =>
       [modelSlice.name]: modelSlice.reducer,
       [conversationSlice.name]: conversationSlice.reducer,
       [apiSlice.reducerPath]: apiSlice.reducer,
+      [otherSlice.name]: otherSlice.reducer,
     },
 
     devTools: process.env.NODE_ENV !== "production",

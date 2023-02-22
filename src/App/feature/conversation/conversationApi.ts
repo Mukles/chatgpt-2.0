@@ -85,7 +85,20 @@ const conversationApi = apiSlice.injectEndpoints({
               }
             )
           );
-        } catch (error) {}
+        } catch (error: any) {
+          dispatch(
+            conversationApi.util.updateQueryData(
+              "getMessages",
+              chatId as string,
+              (draftMessage) => {
+                draftMessage.messages.push({
+                  sender: "gpt",
+                  message: error.error.data.message,
+                });
+              }
+            )
+          );
+        }
       },
     }),
 

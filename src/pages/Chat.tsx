@@ -4,8 +4,9 @@ import ChatItem from "../Components/chat/chatItem";
 import withAddNewMessage from "../HOC/withAddNewMessage";
 interface Props {
   isAdding: boolean;
+  newMessageId: any;
 }
-const Chat = ({ isAdding }: Props) => {
+const Chat = ({ isAdding, newMessageId }: Props) => {
   const conversations = useSelector<RootState, any>(
     (state) => state.conversation
   );
@@ -13,7 +14,13 @@ const Chat = ({ isAdding }: Props) => {
   return (
     <>
       {conversations?.map((conversation: any, i: number) => {
-        return <ChatItem key={i} messageText={conversation} />;
+        return (
+          <ChatItem
+            key={i}
+            newMessageId={newMessageId}
+            messageText={conversation}
+          />
+        );
       })}
 
       {isAdding && (

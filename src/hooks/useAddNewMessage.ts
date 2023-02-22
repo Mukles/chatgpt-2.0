@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useAddMessageMutation } from "../App/feature/conversation/conversationApi";
 import { add } from "../App/feature/conversation/conversationSlice";
 import { IModel } from "../App/feature/model/modelSlice";
+import { toggleAnimation } from "../App/feature/user/other";
 import { RootState } from "../App/store";
 
 export const useAddMessage = (
@@ -15,19 +17,13 @@ export const useAddMessage = (
     (state) => state.model
   );
   const [addMessage, { isLoading, data }] = useAddMessageMutation();
+  const [newResponse, setResponse] = useState<any>();
 
   const submitHandler = async (e: any) => {
     e.preventDefault();
     if (!textAreaRef.current) return null;
     const prompt = textAreaRef.current.value;
-    const wrapper = document.querySelector(
-      "main > div:first-child"
-    ) as HTMLElement;
-
-    wrapper.scrollTop = wrapper.scrollHeight;
-
-    console.log({ top: wrapper.scrollHeight });
-    console.log({ client: wrapper.clientHeight });
+    dispatch(toggleAnimation());
 
     //generate pramas depending on chat or data
     const params =
@@ -47,10 +43,11 @@ export const useAddMessage = (
           ? response.messages[response.messages.length - 1]
           : { sender: "gpt", message: "something went wrong" };
       dispatch(add(newMessage));
+      setResponse(newMessage._id);
     } catch (err) {
       dispatch(add({ sender: "gpt", message: "something went wrong" }));
     }
   };
 
-  return { isLoading, data, submitHandler };
+  return { isLoading, newResponse, submitHandler };
 };
