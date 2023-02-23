@@ -46,11 +46,27 @@ export const InputBox = forwardRef(
       adjustFont(e.target);
     };
 
+    const handleKeyDown = (event: any) => {
+      const textArea = event.target;
+      if (event.keyCode === 13 && !event.shiftKey) {
+        // Submit the form
+        event.preventDefault();
+        submitHandler(event);
+      } else if (event.keyCode === 13 && event.shiftKey) {
+        // Add a new line to the text area
+        textArea.value += "\n";
+      }
+    };
+
     return (
       <form onSubmit={submitHandler} className="input-container">
         <div>
           <div className="input">
-            <textarea ref={ref} onChange={handleChange} />
+            <textarea
+              ref={ref}
+              onKeyDown={handleKeyDown}
+              onChange={handleChange}
+            />
             <button disabled={isLoading || !isDone} type="submit">
               {isLoading || !isDone ? <ThreeDotsLoader /> : <Submit />}
             </button>

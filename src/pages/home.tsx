@@ -20,10 +20,6 @@ const Home = ({ isAdding, newMessageId }: Props) => {
   const messagesList = messageContainer?.messages;
   const navTitle = document.querySelector(".nav-title");
 
-  console.log(navTitle);
-
-  console.log(messageContainer);
-
   useEffect(() => {
     const wrapper = document.querySelector(
       "main > div:first-child"
@@ -38,10 +34,11 @@ const Home = ({ isAdding, newMessageId }: Props) => {
         <Loader />
       ) : (
         <>
-          {createPortal(
-            messageContainer?.firstMessage,
-            navTitle as HTMLElement
-          )}
+          {navTitle &&
+            createPortal(
+              messageContainer?.firstMessage,
+              navTitle as HTMLElement
+            )}
           <AnimatePresence initial={false}>
             {messagesList?.map((message, i: number) => {
               return (

@@ -46,6 +46,7 @@ export const useAddMessage = (
       setResponse(newMessage._id);
     } catch (err) {
       dispatch(add({ sender: "gpt", message: "something went wrong" }));
+      dispatch(toggleAnimation());
     }
   };
 
