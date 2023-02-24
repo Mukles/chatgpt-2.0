@@ -35,7 +35,7 @@ export const useAddMessage = (
 
     try {
       const response = await addMessage(params).unwrap();
-
+      textAreaRef.current.value = "";
       const newMessage =
         chatId || data?._id
           ? response.newMessage
