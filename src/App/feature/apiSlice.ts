@@ -14,13 +14,6 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-// export const apiSlice = createApi({
-//   reducerPath: "api",
-//   baseQuery:  async () =>{},
-
-//   endpoints: (builder) => ({}),
-// });
-
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: async (args, api, extraOptions) => {

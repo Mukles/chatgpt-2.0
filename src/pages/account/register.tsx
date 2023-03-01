@@ -65,7 +65,6 @@ const Register = () => {
                     try {
                       await register(values);
                       state?.from && navigate("/");
-                      resetForm();
                     } catch (error: any) {
                       alert(error?.data?.message);
                     }

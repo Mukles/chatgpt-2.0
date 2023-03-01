@@ -22,7 +22,7 @@ const Settings = () => {
 
   const onchangeHandle = (e: any) => {
     const { value } = e.target;
-    dispatch(setvalue({ temperature: parseInt(value) }));
+    dispatch(setvalue({ temperature: value }));
   };
 
   return (
@@ -78,7 +78,9 @@ const Settings = () => {
       <div className="settting-item">
         <label htmlFor="model">Temperature</label>
         <input
-          type={"number"}
+          min="0"
+          max="1"
+          type="number"
           onChange={onchangeHandle}
           value={modelInfo.temperature}
         />

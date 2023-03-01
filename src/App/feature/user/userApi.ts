@@ -25,7 +25,6 @@ const userApi = apiSlice.injectEndpoints({
         const formdata = new FormData();
         const keys = Object.keys(data);
         keys.forEach((key) => formdata.append(key, (data as any)[key]));
-        console.log(formdata.getAll("name"));
         return {
           method: "POST",
           url: "/user/register",

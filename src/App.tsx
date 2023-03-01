@@ -10,7 +10,6 @@ import "./scss/app.scss";
 
 function App() {
   const { pathname } = useLocation();
-  console.log({ pathname });
 
   let element = useRoutes([
     {

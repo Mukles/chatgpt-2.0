@@ -1,4 +1,6 @@
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { clear } from "../App/feature/conversation/conversationSlice";
 import { Add, Bars } from "../icons/Icons";
 
 interface Props {
@@ -7,6 +9,7 @@ interface Props {
 
 const Header = ({ setOpen }: Props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <header>
       <nav>
@@ -20,7 +23,12 @@ const Header = ({ setOpen }: Props) => {
             <p className="nav-title"></p>
           </li>
           <li>
-            <button onClick={() => navigate("/chat")}>
+            <button
+              onClick={() => {
+                navigate("/chat");
+                dispatch(clear());
+              }}
+            >
               <Add />
             </button>
           </li>
