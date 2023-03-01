@@ -36,7 +36,9 @@ const Home = ({ isAdding, newMessageId }: Props) => {
   return (
     <>
       {isLoading ? (
-        <Loader />
+        <div className="chat-list-loader">
+          <Loader />
+        </div>
       ) : (
         <>
           {navTitle &&
