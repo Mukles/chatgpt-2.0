@@ -21,9 +21,7 @@ const Home = ({ isAdding, newMessageId }: Props) => {
   const navTitle = document.querySelector(".nav-title");
 
   useEffect(() => {
-    const wrapper = document.querySelector(
-      "main > div:first-child"
-    ) as HTMLElement;
+    const wrapper = document.querySelector(".messages-wrapper") as HTMLElement;
 
     wrapper.scrollTop = wrapper.scrollHeight + 120;
   }, [isAdding]);

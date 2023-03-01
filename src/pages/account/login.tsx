@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../App/feature/user/userApi";
 import graphic from "../../assets/graphic.svg";
 import CustomInput from "../../helpers/custom-input";
+import Loader from "../../helpers/Loader";
 import { ChatGpt } from "../../icons/Icons";
 import { loginSchema } from "../../validation/registationValidation";
 
@@ -83,8 +84,13 @@ const Login = () => {
                           />
                         </div>
                         <div className="submit">
-                          <button disabled={isLoading} type="submit">
-                            Login
+                          <button
+                            className="submit-button"
+                            disabled={isLoading}
+                            type="submit"
+                          >
+                            <span> Login</span>
+                            {isLoading && <Loader />}
                           </button>
                           <Link to="/">Forget Password</Link>
                         </div>

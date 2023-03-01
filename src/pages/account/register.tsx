@@ -3,6 +3,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../../App/feature/user/userApi";
 import graphic from "../../assets/graphic.svg";
 import CustomInput from "../../helpers/custom-input";
+import Loader from "../../helpers/Loader";
 import { ChatGpt } from "../../icons/Icons";
 import { registerSchema } from "../../validation/registationValidation";
 
@@ -112,8 +113,13 @@ const Register = () => {
                           />
                         </div>
                         <div className="submit">
-                          <button disabled={isLoading} type="submit">
-                            Register
+                          <button
+                            className="submit-button"
+                            disabled={isLoading}
+                            type="submit"
+                          >
+                            <span> Register</span>
+                            {isLoading && <Loader />}
                           </button>
                         </div>
                       </Form>
