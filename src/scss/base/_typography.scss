@@ -37,32 +37,35 @@ body {
 }
 
 main {
-  position: relative;
   overflow-y: hidden;
 
   & > div:first-child {
     height: 100%;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 
     .messages-wrapper {
       padding-bottom: 165px;
-    }
+      overflow: hidden;
+      overflow-y: auto;
 
-    &:hover ::-webkit-scrollbar {
-      width: 20px;
-      display: block;
-    }
+      &:hover ::-webkit-scrollbar {
+        width: 20px;
+        display: block;
+      }
 
-    &::-webkit-scrollbar {
-      width: 8px;
-    }
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
 
-    &::-webkit-scrollbar-thumb {
-      background: #55586b;
-      border-radius: 8px;
+      &::-webkit-scrollbar-thumb {
+        background: #55586b;
+        border-radius: 8px;
 
-      &:hover {
-        background: #acacbe;
+        &:hover {
+          background: #acacbe;
+        }
       }
     }
   }
