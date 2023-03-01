@@ -1,8 +1,11 @@
 import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useGetMessagesQuery } from "../App/feature/conversation/conversationApi";
+import { toggleAnimation } from "../App/feature/user/other";
+import { RootState } from "../App/store";
 import ChatItem from "../Components/chat/chatItem";
 import Loader from "../helpers/Loader";
 import withAddNewMessage from "../HOC/withAddNewMessage";
@@ -13,18 +16,22 @@ interface Props {
 }
 
 const Home = ({ isAdding, newMessageId }: Props) => {
+  const dispatch = useDispatch();
   const { chatId } = useParams();
   const { data: messageContainer, isLoading } = useGetMessagesQuery(
     chatId as string
   );
   const messagesList = messageContainer?.messages;
   const navTitle = document.querySelector(".nav-title");
+  const isAnimate = useSelector<RootState, boolean>(
+    (state) => state.other.isAnimateDone
+  );
 
   useEffect(() => {
-    const wrapper = document.querySelector(".messages-wrapper") as HTMLElement;
-
-    wrapper.scrollTop = wrapper.scrollHeight + 120;
-  }, [isAdding]);
+    if (!isAnimate) {
+      dispatch(toggleAnimation());
+    }
+  }, [dispatch, chatId, isAnimate]);
 
   return (
     <>

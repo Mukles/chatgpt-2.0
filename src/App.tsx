@@ -1,4 +1,4 @@
-import { useRoutes } from "react-router-dom";
+import { useLocation, useRoutes } from "react-router-dom";
 import Layout from "./layout";
 import Login from "./pages/account/login";
 import Register from "./pages/account/register";
@@ -9,6 +9,9 @@ import PublicRoute from "./routes/public-route";
 import "./scss/app.scss";
 
 function App() {
+  const { pathname } = useLocation();
+  console.log({ pathname });
+
   let element = useRoutes([
     {
       path: "/account",
@@ -46,7 +49,7 @@ function App() {
 
         {
           path: "chat/:chatId",
-          element: <Home />,
+          element: <Home key={pathname} />,
         },
 
         {
